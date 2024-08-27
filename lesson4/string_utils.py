@@ -116,3 +116,6 @@ class StringUtils:
             string += str(lst[i]) + joiner
         
         return string + str(lst[-1])
+    
+print(1)
+    
