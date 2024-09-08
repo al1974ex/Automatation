@@ -1,32 +1,25 @@
+from time import sleep
 from selenium import webdriver
+
+from selenium.webdriver.firefox.service import Service as FirefoxService
+from webdriver_manager.firefox import GeckoDriverManager
+
 from selenium.webdriver.common.by import By
-import time
 
-# Указать путь к драйверу браузеру
-driver = webdriver.Chrome()
+driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
 
-try:
-    # Открыть страницу
-    driver.get("http://the-internet.herokuapp.com/inputs")
+driver.get("http://the-internet.herokuapp.com/inputs")
 
-    # Найти поле ввода
-    input_field = driver.find_element(By.TAG_NAME, "input")
+search_field = "input[type='number']"
+search_input = driver.find_element(By.CSS_SELECTOR, search_field)
+sleep(2)
+search_input.send_keys("1000")
+sleep(2)
+search_input.clear()
+sleep(2)
+search_input.send_keys("999")
 
-    # Ввести текст "1000"
-    input_field.send_keys("1000")
 
-    
-    time.sleep(5)
+sleep(5)
 
-    # Очистить поле ввода
-    input_field.clear()
-
-    # Ввести текст "999"
-    input_field.send_keys("999")
-
-    
-    time.sleep(5)
-
-finally:
-    
-    driver.quit()
+driver.quit()

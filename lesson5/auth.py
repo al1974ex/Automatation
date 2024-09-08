@@ -1,26 +1,29 @@
+from time import sleep
 from selenium import webdriver
+
+from selenium.webdriver.firefox.service import Service as FirefoxService
+from webdriver_manager.firefox import GeckoDriverManager
+
 from selenium.webdriver.common.by import By
 
-# Указать путь к драйверу браузера
-driver = webdriver.Chrome()
+driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
 
-try:
-    # Открыть страницу
-    driver.get("http://the-internet.herokuapp.com/login")
+driver.get(" http://the-internet.herokuapp.com/login")
+sleep(5)
 
-    # Найти поле ввода для имени пользователя и ввести значение "tomsmith"
-    username_field = driver.find_element(By.ID, "username")
-    username_field.send_keys("tomsmith")
+username = "#username"
+username_input = driver.find_element(By.CSS_SELECTOR, username)
+sleep(2)
+username_input.send_keys("tomsmith")
+sleep(2)
 
-    # Найти поле ввода для пароля и ввести значение "SuperSecretPassword!"
-    password_field = driver.find_element(By.ID, "password")
-    password_field.send_keys("SuperSecretPassword!")
+password = "#password"
+password_input = driver.find_element(By.CSS_SELECTOR, password)
+sleep(2)
+password_input.send_keys("SuperSecretPassword")
+sleep(2)
 
-    # Найти кнопку "Login" и кликнуть по ней
-    login_button = driver.find_element(By.CSS_SELECTOR, "button[type='submit']")
-    login_button.click()
+button = driver.find_element(By.CSS_SELECTOR, "button.radius").click()
+sleep(10)
 
-
-finally:
-    
-    driver.quit()
+driver.quit()

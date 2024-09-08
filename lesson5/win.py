@@ -1,20 +1,17 @@
+from time import sleep
 from selenium import webdriver
+
+from selenium.webdriver.firefox.service import Service as FirefoxService
+from webdriver_manager.firefox import GeckoDriverManager
+
 from selenium.webdriver.common.by import By
-import time
+driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
 
-# Указать путь к драйверу браузера
-driver = webdriver.Chrome()
+driver.get("http://the-internet.herokuapp.com/entry_ad")
+sleep(5)
 
-try:
-    # Открыть страницу
-    driver.get("http://the-internet.herokuapp.com/entry_ad")
+driver.find_element(By.CSS_SELECTOR, "div.modal-footer").click()
 
-    
-    time.sleep(5)
+sleep(5)
 
-    # Найти кнопку "Close" в модальном окне и кликнуть по ней
-    close_button = driver.find_element(By.CSS_SELECTOR, ".modal-footer > p")
-    close_button.click()
-
-finally:
-    driver.quit()
+driver.quit()
