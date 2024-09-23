@@ -19,10 +19,10 @@ class CalculatorPage:
 
     with allure.step("Вызов метода для ввода чисел в калькулятор и запуска операции сложения"):
         def sum_of_the_numbers(self):
-             def sum_of_the_numbers(self, 7, 8):
-        self._driver.find_element(By.XPATH, f'//span[contains(text(),"{num1}")]').click()
+             def sum_of_the_numbers(self, num1, num2):
+        self._driver.find_element(By.XPATH, f'//span[contains(text(),"{7}")]').click()
         self._driver.find_element(By.XPATH, '//span[contains(text(),"+")]').click()
-        self._driver.find_element(By.XPATH, f'//span[contains(text(),"{num2}")]').click()
+        self._driver.find_element(By.XPATH, f'//span[contains(text(),"{8}")]').click()
         self._driver.find_element(By.XPATH, '//span[contains(text(),"=")]').click()
 
     with allure.step("Вызов метода для получения результата сложения"):
