@@ -19,11 +19,15 @@ class CalculatorPage:
         input_delay.send_keys('3')
 
     @allure.step("Ввод чисел в калькулятор и запуск операции сложения")
-    def sum_of_the_numbers(self, num1, num2):
-        self._driver.find_element(By.XPATH, f'//span[contains(text(),"{num1}")]').click()
-        self._driver.find_element(By.XPATH, '//span[contains(text(),"+")]').click()
-        self._driver.find_element(By.XPATH, f'//span[contains(text(),"{num2}")]').click()
-        self._driver.find_element(By.XPATH, '//span[contains(text(),"=")]').click()
+    def click_element(self, num):
+self._driver.find_element(By.XPATH, f'//span[contains(text(),"{num}")]').click()
+
+, а в коде вызывать как-то вот так:
+calculator_page.click_element("7")
+calculator_page.click_element("+")
+calculator_page.click_element("8")
+calculator_page.click_element("=")
+calculator_page.get_result()
 
     @allure.step("Получение результата сложения")
     def get_result(self, expected_text):
