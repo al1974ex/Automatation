@@ -20,14 +20,12 @@ class CalculatorPage:
 
     @allure.step("Ввод чисел в калькулятор и запуск операции сложения")
     def click_element(self, num):
-self._driver.find_element(By.XPATH, f'//span[contains(text(),"{num}")]').click()
-
-, а в коде вызывать как-то вот так:
-calculator_page.click_element("7")
-calculator_page.click_element("+")
-calculator_page.click_element("8")
-calculator_page.click_element("=")
-calculator_page.get_result()
+        self._driver.find_element(By.XPATH, f'//span[contains(text(),"{num}")]').click()
+        calculator_page.click_element("7")
+        calculator_page.click_element("+")
+        calculator_page.click_element("8")
+        calculator_page.click_element("=")
+        calculator_page.get_result()
 
     @allure.step("Получение результата сложения")
     def get_result(self, expected_text):
@@ -40,23 +38,6 @@ calculator_page.get_result()
     def close_driver(self):
         self._driver.quit()
 
-# Настройка драйвера
-driver = webdriver.Chrome()
+    
 
-try:
-    # Создаем объект страницы калькулятора
-    calculator_page = CalculatorPage(driver)
 
-    # Устанавливаем задержку
-    calculator_page.delay()
-
-    # Используем метод для сложения чисел 7 и 8
-    calculator_page.sum_of_the_numbers(7, 8)
-
-    # Проверка результата сложения
-    result_is_correct = calculator_page.get_result("15")
-    assert result_is_correct, "Ожидаемый результат не совпадает с фактическим"
-
-finally:
-    # Закрываем драйвер после выполнения тестов
-    calculator_page.close_driver()
