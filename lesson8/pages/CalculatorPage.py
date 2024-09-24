@@ -21,11 +21,11 @@ class CalculatorPage:
     @allure.step("Ввод чисел в калькулятор и запуск операции сложения")
     def click_element(self, num):
         self._driver.find_element(By.XPATH, f'//span[contains(text(),"{num}")]').click()
-        calculator_page.click_element("7")
-        calculator_page.click_element("+")
-        calculator_page.click_element("8")
-        calculator_page.click_element("=")
-        calculator_page.get_result()
+        self.calculator_page.click_element("7")
+        self.calculator_page.click_element("+")
+        self.calculator_page.click_element("8")
+        self.calculator_page.click_element("=")
+        self.calculator_page.get_result()
 
     @allure.step("Получение результата сложения")
        def get_result(self):
