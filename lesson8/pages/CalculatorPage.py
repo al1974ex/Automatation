@@ -28,15 +28,14 @@ class CalculatorPage:
         calculator_page.get_result()
 
     @allure.step("Получение результата сложения")
-    def get_result(self, expected_text):
-        WebDriverWait(self._driver, 45).until(
-            EC.text_to_be_present_in_element((By.CSS_SELECTOR, "div.screen"), expected_text)
-        )
-        return self._driver.find_element(By.CSS_SELECTOR, "div.screen").text == expected_text
+       def get_result(self):
+            WebDriverWait(self._driver, "48").until(
+                EC.text_to_be_present_in_element((By.CSS_SELECTOR, "div.screen"), "15"))
+            return self._driver.find_element(By.CSS_SELECTOR, "div.screen").text == "15"
 
     @allure.step("Закрытие драйвера веб-браузера")
-    def close_driver(self):
-        self._driver.quit()
+       def close_driver(self):
+          self._driver.quit()
 
     
 
