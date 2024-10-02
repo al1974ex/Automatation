@@ -116,3 +116,57 @@ def test_patch_employee():
     assert edited["email"] == "somov123@mail.ru"
     assert edited["url"] == "_Updated_"
     assert edited["isActive"] == False
+      import requests
+import pytest
+
+BASE_URL = "http://your-api-url.com/api"  # Замените на фактический URL вашего API
+
+@pytest.fixture
+def company_id():
+    # Предположим, что у вас есть способ создать тестовую компанию и получить ее ID
+    response = requests.post(f"{BASE_URL}/companies", json={"name": "Test Company"})
+    assert response.status_code == 201
+    return response.json()["id"]
+
+def test_add_employee_positive(company_id):
+    # Позитивный тест на добавление сотрудника
+    employee_data = {
+        "firstName": "Sergey",
+        "lastName": "Ivanov",
+        "position": "Developer"
+    }
+    response = requests.post(f"{BASE_URL}/companies/{company_id}/employees", json=employee_data)
+    assert response.status_code == 201
+
+    # Проверка, что сотрудник добавлен
+    employees_response = requests.get(f"{BASE_URL}/companies/{company_id}/employees")
+    assert employees_response.status_code == 200
+    employees = employees_response.json()
+    assert any(emp["firstName"] == "Sergey" for emp in employees)
+
+def test_add_employee_missing_first_name(company_id):
+    # Негативный тест: отсутствие обязательного поля firstName
+    employee_data = {
+        "lastName": "Ivanov",
+        "position": "Developer"
+    }
+    response = requests.post(f"{BASE_URL}/companies/{company_id}/employees", json=employee_data)
+    assert response.status_code == 400  # Предполагаем, что API возвращает 400 при отсутствии обязательного поля
+
+def test_add_employee_missing_last_name(company_id):
+    # Негативный тест: отсутствие обязательного поля lastName
+    employee_data = {
+        "firstName": "Sergey",
+        "position": "Developer"
+    }
+    response = requests.post(f"{BASE_URL}/companies/{company_id}/employees", json=employee_data)
+    assert response.status_code == 400
+
+def test_add_employee_missing_position(company_id):
+    # Негативный тест: отсутствие обязательного поля position
+    employee_data = {
+        "firstName": "Sergey",
+        "lastName": "Ivanov"
+    }
+    response = requests.post(f"{BASE_URL}/companies/{company_id}/employees", json=employee_data)
+    assert response.status_code == 400
